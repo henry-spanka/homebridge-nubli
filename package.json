@@ -1,0 +1,45 @@
+{
+    "name": "homebridge-nubli",
+    "version": "0.1.0",
+    "description": "Platform plugin to manage Nuki Smart Locks via Bluetooth",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "prepare": "npm run build",
+        "build": "./node_modules/typescript/bin/tsc",
+        "build-watch": "./node_modules/typescript/bin/tsc -w",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "license": "MIT",
+    "author": "Henry Spanka",
+    "keywords": [
+        "homebridge-plugin",
+        "nuki",
+        "nubli",
+        "bluetooth",
+        "homekit",
+        "lock",
+        "door",
+        "door-lock"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/henry-spanka/homebridge-nubli.git"
+    },
+    "bugs": {
+        "url": "https://github.com/henry-spanka/homebridge-nubli/issues"
+    },
+    "engines": {
+        "node": ">=0.12.0",
+        "homebridge": ">=0.2.0"
+    },
+    "devDependencies": {
+        "@types/noble": "0.0.38",
+        "@types/node": "^10.12.21",
+        "typescript": "^3.3.1"
+    },
+    "dependencies": {
+        "npm": "^5.7.1",
+        "nubli": "git+https://github.com/henry-spanka/nubli.git"
+    }
+}

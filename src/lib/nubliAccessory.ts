@@ -116,10 +116,12 @@ export class NubliAccessory {
                 try {
                     if (value == this.api.hap.Characteristic.LockTargetState.SECURED) {
                         await this.smartLock.lock(updateCallback);
+                        await this.smartLock.disconnect();
                         this.platform.log("Successfully locked door.");
                         callback();
                     } else if (value == this.api.hap.Characteristic.LockTargetState.UNSECURED) {
                         await this.smartLock.unlock(updateCallback);
+                        await this.smartLock.disconnect();
                         this.platform.log("Successfully unlocked door.");
                         callback();
                     }
@@ -155,6 +157,7 @@ export class NubliAccessory {
                         callback("Cannot lock the latch.");
                     } else if (value == this.api.hap.Characteristic.LockTargetState.UNSECURED) {
                         await this.smartLock.unlatch(updateCallback);
+                        await this.smartLock.disconnect();
                         this.platform.log("Successfully unlatched door.");
                         callback();
                     }

@@ -71,7 +71,7 @@ export class NubliAccessory {
             .getCharacteristic(this.api.hap.Characteristic.LockCurrentState)
             .on('get', this.getCurrentUnlatchState.bind(this));
 
-            unlatchService
+        unlatchService
             .getCharacteristic(this.api.hap.Characteristic.LockTargetState)
             .on('get', this.getTargetUnlatchState.bind(this))
             .on('set', this.setTargetUnlatchState.bind(this));
@@ -104,7 +104,31 @@ export class NubliAccessory {
     }
 
     setTargetLockState(value: number, callback: (err?: string | null) => void): void {
-        callback();
+        let updateCallback = (response: SmartLockResponse) => {
+            this.updateLockState(response);
+            this.updateCharacteristics();
+        };
+
+        (async () => {
+            if (!this.smartLock) {
+                callback("An unknown error occured");
+            } else {
+                try {
+                    if (value == this.api.hap.Characteristic.LockTargetState.SECURED) {
+                        await this.smartLock.lock(updateCallback);
+                        this.platform.log("Successfully locked door.");
+                        callback();
+                    } else if (value == this.api.hap.Characteristic.LockTargetState.UNSECURED) {
+                        await this.smartLock.unlock(updateCallback);
+                        this.platform.log("Successfully unlocked door.");
+                        callback();
+                    }
+                } catch (error) {
+                    this.platform.log("Could not lock/unlock door.");
+                    callback("An unknown error occurred" + error.message);
+                }
+            }
+        })();
     }
 
     getCurrentUnlatchState(callback: (err: string | null, result: number) => void): void {
@@ -116,7 +140,30 @@ export class NubliAccessory {
     }
 
     setTargetUnlatchState(value: number, callback: (err?: string | null) => void): void {
-        callback();
+        let updateCallback = (response: SmartLockResponse) => {
+            this.updateLockState(response);
+            this.updateCharacteristics();
+        };
+        
+        (async () => {
+            if (!this.smartLock) {
+                callback("An unknown error occured");
+            } else {
+                try {
+                    if (value == this.api.hap.Characteristic.LockTargetState.SECURED) {
+                        this.platform.log("The latch cannot be locked.");
+                        callback("Cannot lock the latch.");
+                    } else if (value == this.api.hap.Characteristic.LockTargetState.UNSECURED) {
+                        await this.smartLock.unlatch(updateCallback);
+                        this.platform.log("Successfully unlatched door.");
+                        callback();
+                    }
+                } catch (error) {
+                    this.platform.log("Could not unlatch door.");
+                    callback("An unknown error occurred" + error.message);
+                }
+            }
+        })();
     }
 
     getBatteryLevel(callback: (err: string | null, result: string | number) => void): void {

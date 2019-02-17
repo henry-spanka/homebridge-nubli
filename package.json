@@ -1,6 +1,6 @@
 {
     "name": "homebridge-nubli",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "Platform plugin to manage Nuki Smart Locks via Bluetooth",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -40,6 +40,6 @@
     },
     "dependencies": {
         "npm": "^5.7.1",
-        "nubli": "git+https://github.com/henry-spanka/nubli.git"
+        "nubli": "^1.0.0"
     }
 }

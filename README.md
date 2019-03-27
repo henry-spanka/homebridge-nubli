@@ -35,6 +35,7 @@ To configure the plugin add the following to the platform section in `config.jso
 {
     "platform": "Nubli",
     "configPath": "/path/to/homebridge/nubliConfig/",
+    "debug": false,
     "locks": [
         {
             "name": "Entrance Lock",

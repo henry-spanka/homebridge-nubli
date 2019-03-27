@@ -27,7 +27,9 @@ export class NubliPlatform {
             }
         }
 
-        this.nubli.setDebug(true);
+        if (config.debug) {
+            this.nubli.setDebug(true);
+        }
 
         this.nubli.on('smartLockDiscovered', (smartLock: SmartLock) => this.smartLockDiscovered(smartLock));
 

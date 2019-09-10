@@ -7,3 +7,7 @@ Initial Stable Release
 ##### Bug Fixes
 
 * Do not enable debug by default
+
+#### 1.0.2 (2019-09-10)
+
+Depend on nubli >= 1.0.1 to fix the non-working pair example script
